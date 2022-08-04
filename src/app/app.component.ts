@@ -21,7 +21,7 @@ interface Story {
     <section class="story" *ngFor="let story of stories">
       <h1>{{story.title}}</h1>
       <span>{{story.date | date:'mediumDate'}} at {{story.date | date:'shortTime'}}</span>
-      <div><markdown [data]="story.contents"></markdown></div>
+      <div class="contents"><markdown [data]="story.contents"></markdown></div>
     </section>
     <router-outlet></router-outlet>
   </div>
@@ -50,7 +50,7 @@ interface Story {
 
     section {
       width: 100%;
-      max-width: 960px;
+      max-width: 750px;
       margin: 0 auto;
       display: flex;
     }
@@ -67,6 +67,10 @@ interface Story {
     .story span {
       font-size: 0.875rem;
       color: hsl(0deg, 0%, 40%);
+    }
+
+    .story .contents {
+      line-height: 1.4;
     }
   `]
 })
