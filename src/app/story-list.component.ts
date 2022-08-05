@@ -157,7 +157,7 @@ export class StoryListComponent {
 
   private updateDraftInterval?: any; // NodeJS.Timer
 
-  constructor(private auth: AuthService, private storyService: StoryService) {
+  constructor(public auth: AuthService, private storyService: StoryService) {
 
   }
 
