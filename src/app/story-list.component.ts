@@ -18,6 +18,7 @@ import { StoryService } from './story.service';
       </section>
     </nav>
     <section class="spacer"></section>
+
     <section class="create-story">
       <input [(ngModel)]="draft.title" placeholder="Today's Story" />
       <textarea rows="4" [(ngModel)]="draft.contents" placeholder="What set today apart from the rest? How did it change you? Take a moment to reflect and write a few short sentences about what made your day interesting."></textarea>
@@ -147,7 +148,6 @@ import { StoryService } from './story.service';
 })
 export class StoryListComponent {
   public document = document;
-  userULID = '01G9KJ9ANQ8JHEJZRKWWMJFEXE';
   draft: Story = {
     title: '',
     contents: ''
@@ -162,12 +162,12 @@ export class StoryListComponent {
   }
 
   async ngOnInit() {
-    this.stories = await this.storyService.listStories(this.userULID);
-    this.draft = await this.storyService.getDraft(this.userULID);
+    this.stories = await this.storyService.listStories();
+    this.draft = await this.storyService.getDraft();
 
     this.updateDraftInterval = setInterval(() => {
       if (this.draft.contents || this.draft.title) {
-        this.storyService.updateDraft(this.userULID, this.draft);
+        this.storyService.updateDraft(this.draft);
       }
     }, 5000);
   }
@@ -177,7 +177,7 @@ export class StoryListComponent {
   }
 
   async createStory(story: Story) {
-    const newStory = await this.storyService.createStory(this.userULID, story);
+    const newStory = await this.storyService.createStory(story);
 
     if (newStory) {
       this.stories = [newStory, ...this.stories];
@@ -194,6 +194,6 @@ export class StoryListComponent {
       contents: ''
     };
 
-    await this.storyService.deleteDraft(this.userULID);
+    await this.storyService.deleteDraft();
   }
 }

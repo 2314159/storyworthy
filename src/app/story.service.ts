@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { orderBy } from 'lodash';
 import { lastValueFrom } from 'rxjs';
 import { Story } from './story.model';
@@ -8,37 +9,52 @@ const API_ROOT = 'https://crabl-storyworthy.builtwithdark.com';
 
 @Injectable({ providedIn: 'root' })
 export class StoryService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
+  private async getUserId() {
+    const user = await lastValueFrom(this.auth.getUser());
+
+    const token = await lastValueFrom(this.auth.getAccessTokenSilently());
+    console.log(token);
+    console.log(user);
+    return user?.sub;
   }
 
-  async listStories(userULID: string) {
+  async listStories() {
     try {
-      const res = await lastValueFrom(this.http.get<Story[]>(`${API_ROOT}/${userULID}/story`));
+      console.log('list stories')
+      const userId = await this.getUserId();
+      const res = await lastValueFrom(this.http.get<Story[]>(`${API_ROOT}/${userId}/story`));
       return orderBy(res, ['date'] , ['desc']);
     } catch (err) {
-      return [];
+      console.error(err);
     }
+
+    return [];
   }
 
-  async createStory(userULID: string, story: Story) {
+  async createStory(story: Story) {
     if (story.title && story.contents) {
       try {
-        const res = await lastValueFrom(this.http.post<Story>(`${API_ROOT}/${userULID}/story`, story));
+        const userId = await this.getUserId();
+        const res = await lastValueFrom(this.http.post<Story>(`${API_ROOT}/${userId}/story`, story));
         return res;
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     } 
     
-    return null;
+    return;
   }
 
-  async getDraft(userULID: string) {
+  async getDraft() {
     try {
-      const res = await lastValueFrom(this.http.get<Story>(`${API_ROOT}/${userULID}/draft`));
+      const userId = await this.getUserId();
+      const res = await lastValueFrom(this.http.get<Story>(`${API_ROOT}/${userId}/draft`));
       return res;
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
 
     return {
       title: '',
@@ -46,15 +62,27 @@ export class StoryService {
     };
   }
 
-  async updateDraft(userULID: string, draft: Story) {
+  async updateDraft(draft: Story) {
     try {
-      const res = await lastValueFrom(this.http.put<Story>(`${API_ROOT}/${userULID}/draft`, draft));
-    } catch (err) {}
+      const userId = await this.getUserId();
+      const res = await lastValueFrom(this.http.put<Story>(`${API_ROOT}/${userId}/draft`, draft));
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
+
+    return;
   }
 
-  async deleteDraft(userULID: string) {
+  async deleteDraft() {
     try {
-      const res = await lastValueFrom(this.http.delete<Story>(`${API_ROOT}/${userULID}/draft`));
-    } catch (err) {}
+      const userId = await this.getUserId();
+      const res = await lastValueFrom(this.http.delete<Story>(`${API_ROOT}/${userId}/draft`));
+      return res;
+    } catch (err) {
+      console.error(err);
+    }
+
+    return;
   }
 }
