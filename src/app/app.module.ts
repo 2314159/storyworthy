@@ -11,6 +11,8 @@ import { CreateStoryComponent } from './create-story.component';
 import { LoginComponent } from './login.component';
 import { StoryListComponent } from './story-list.component';
 import { StoryService } from './story.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,12 @@ import { StoryService } from './story.service';
     AuthModule.forRoot({
       domain: 'storyworthy.us.auth0.com',
       clientId: 'CRr3k9yRQ9HeKUfMiMHXIiVUmgdjBIEw'
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
