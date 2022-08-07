@@ -43,10 +43,10 @@ import { StoryService } from './story.service';
 
     nav {
       padding: 16px 0;
-      border-bottom: 1px solid #dadada;
+      border-bottom: 1px solid hsl(270deg, 30%, 25%);
       position: fixed;
       width: 100%;
-      background: white;
+      background: hsl(270deg, 77%, 9%);
     }
 
     nav section {
@@ -60,6 +60,11 @@ import { StoryService } from './story.service';
 
     nav div {
       margin: 0 16px 0 0;
+    }
+
+    nav a:link, nav a:visited {
+      text-decoration: none;
+      color: hsl(270deg, 30%, 70%);
     }
 
     section {
@@ -80,7 +85,9 @@ import { StoryService } from './story.service';
 
     .story span {
       font-size: 0.875rem;
-      color: hsl(0deg, 0%, 40%);
+      color: hsl(270deg, 30%, 70%);
+
+      /* color: hsl(0deg, 0%, 40%); */
     }
 
     .story .contents {

@@ -1,8 +1,8 @@
 {
-  "name": "storyworthy",
-  "short_name": "storyworthy",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "Storyworthy",
+  "short_name": "Storyworthy",
+  "theme_color": "#160527",
+  "background_color": "#160527",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

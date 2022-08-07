@@ -24,20 +24,26 @@ import { StoryService } from './story.service';
       flex-direction: column;
       margin: 16px auto;
       padding: 8px 16px;
-      border: 1px solid #dadada;
+      border: 1px solid hsl(270deg, 30%, 25%);
       border-radius: 8px;
     }
 
     .create-story textarea, .create-story input {
       padding: 8px;
+      background: transparent;
+      color: hsl(270deg, 77%, 98%);
       border: 1px solid transparent;
       font-size: 1rem;
       line-height: 1.4;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
+    .create-story textarea::placeholder, .create-story input::placeholder {
+      color: hsl(270deg, 30%, 70%);
+    }
+
     .create-story input {
-      border-bottom: 1px solid #dadada;
+      border-bottom: 1px solid hsl(270deg, 30%, 25%);
       margin-bottom: 8px;
       font-size: 1.25rem;
       font-weight: bold;
@@ -60,29 +66,24 @@ import { StoryService } from './story.service';
     .create-story-button {
       margin: 8px 0 0 8px;
       max-width: 200px;
-      background: hsl(230deg, 60%, 48%);
-      border: 1px solid hsl(230deg, 60%, 44%);
+      background: hsl(270deg, 77%, 40%);
       color: #fff;
     }
     
     .create-story-button:hover {
-      background: hsl(230deg, 70%, 52%);
+      background: hsl(270deg, 77%, 45%);
       color: hsl(230deg, 2%, 100%);
     }
 
     .discard-draft-button {
       margin: 8px 0 0 8px;
       max-width: 200px;
-      background: hsl(230deg, 5%, 95%);
-      border: 1px solid hsl(230deg, 5%, 91%);
-      color: red;
+      background: hsl(0deg, 77%, 40%);
+      color: hsl(230deg, 2%, 100%);
     }
 
-    .discard-draft-button {
-      margin: 8px 0 0 8px;
-      max-width: 200px;
-      background: hsl(230deg, 5%, 99%);
-      color: red;
+    .discard-draft-button:hover {
+      background: hsl(0deg, 77%, 45%);
     }
   `]
 })
