@@ -10,8 +10,11 @@ import { StoryService } from './story.service';
   <div class="app">
     <nav>
       <section>
-        <h3>Storyworthy</h3>
-        <div>
+        <div class="logo">
+          <img src="/assets/icons/icon-72x72.png" width="32" /> 
+          <h3>Storyworthy</h3>
+        </div>
+        <div class="account-actions">
           <a href="#" (click)="auth.logout({ returnTo: document.location.origin })">
             Log out
           </a>
@@ -49,16 +52,22 @@ import { StoryService } from './story.service';
       background: hsl(270deg, 77%, 9%);
     }
 
-    nav section {
-      justify-content: space-between;
-      align-items: baseline;
-    }
-
-    nav h3 {
+    .logo {
+      display: flex;
+      align-items: center;
       margin: 0 0 0 16px;
     }
 
-    nav div {
+    .logo h3 {
+      margin: 0 0 0 8px;
+    }
+
+    nav section {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .account-actions {
       margin: 0 16px 0 0;
     }
 

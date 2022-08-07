@@ -50,7 +50,7 @@ import { StoryService } from './story.service';
     }
 
     .create-story input:focus {
-      border-bottom: 1px solid hsl(230deg, 70%, 52%);
+      border-bottom: 1px solid hsl(270deg, 70%, 52%);
     }
     
     .create-story textarea, .create-story input {
