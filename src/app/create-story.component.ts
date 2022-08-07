@@ -94,7 +94,7 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
 
   private updateDraftInterval?: any; // NodeJS.Timer
 
-  constructor(public auth: AuthService, private storyService: StoryService) { }
+  constructor(public auth: AuthService, private storyService: StoryService) {}
 
   async ngOnInit() {
     this.draft = await this.storyService.getDraft();
@@ -115,7 +115,6 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
     const newStory = await this.storyService.createStory(story);
 
     if (newStory) {
-      // this.stories = [newStory, ...this.stories]; // fix this
       this.discardDraft();
     } else {
       // display error
@@ -123,6 +122,7 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
   }
 
   async discardDraft() {
+    // TODO: confirm discard
     console.log('discard draft')
     this.draft = {
       title: '',

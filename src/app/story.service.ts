@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { orderBy } from 'lodash';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, take } from 'rxjs';
 import { Story } from './story.model';
 
 // NOTE: when changing this value, update Auth0 identity token claim in "Login" Action
@@ -10,6 +10,8 @@ const API_ROOT = 'https://crabl-storyworthy.builtwithdark.com';
 
 @Injectable({ providedIn: 'root' })
 export class StoryService {
+  public stories$ = new BehaviorSubject<Story[]>([]);
+
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   private async getHeaders(): Promise<{ headers: HttpHeaders}> {
@@ -28,10 +30,11 @@ export class StoryService {
 
   async listStories() {
     try {
-      console.log('list stories')
       const userId = await this.getUserId();
       const res = await lastValueFrom(this.http.get<Story[]>(`${API_ROOT}/${userId}/story`, await this.getHeaders()));
-      return orderBy(res, ['date'] , ['desc']);
+      const stories = orderBy(res, ['date'] , ['desc']);
+      this.stories$.next(stories);
+      return stories;
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +47,8 @@ export class StoryService {
       try {
         const userId = await this.getUserId();
         const res = await lastValueFrom(this.http.post<Story>(`${API_ROOT}/${userId}/story`, story, await this.getHeaders()));
+        const stories = await lastValueFrom(this.stories$.pipe(take(1)));
+        this.stories$.next([res, ...stories]);
         return res;
       } catch (err) {
         console.error(err);

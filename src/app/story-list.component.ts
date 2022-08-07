@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { Observable } from 'rxjs';
 import { Story } from './story.model';
 import { StoryService } from './story.service';
 
@@ -22,7 +23,7 @@ import { StoryService } from './story.service';
     <section class="story">
       <app-create-story></app-create-story>
     </section>
-    <section class="story" *ngFor="let story of stories">
+    <section class="story" *ngFor="let story of stories$ | async">
       <h1>{{story.title}}</h1>
       <span>{{story.date | date:'mediumDate'}} at {{story.date | date:'shortTime'}}</span>
       <div class="contents"><markdown [data]="story.contents"></markdown></div>
@@ -57,6 +58,10 @@ import { StoryService } from './story.service';
       margin: 0 0 0 16px;
     }
 
+    nav div {
+      margin: 0 16px 0 0;
+    }
+
     section {
       width: 100%;
       max-width: 750px;
@@ -85,12 +90,13 @@ import { StoryService } from './story.service';
 })
 export class StoryListComponent implements OnInit {
   public document = document;
-  stories: Story[] = [];
+  stories$: Observable<Story[]>;
 
-  constructor(public auth: AuthService, private storyService: StoryService) {}
-
-  async ngOnInit() {
-    this.stories = await this.storyService.listStories();
+  constructor(public auth: AuthService, private storyService: StoryService) {
+    this.stories$ = storyService.stories$;
   }
 
+  async ngOnInit() {
+    await this.storyService.listStories();
+  }
 }
