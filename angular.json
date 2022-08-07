@@ -60,7 +60,7 @@
                 "input": "node_modules/ionicons/dist/",
                 "output": "./"
               },
-              "src/manifest.webmanifest"
+              "src/storyworthy.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
