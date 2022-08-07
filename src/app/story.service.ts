@@ -5,6 +5,7 @@ import { orderBy } from 'lodash';
 import { lastValueFrom } from 'rxjs';
 import { Story } from './story.model';
 
+// NOTE: when changing this value, update Auth0 identity token claim in "Login" Action
 const API_ROOT = 'https://crabl-storyworthy.builtwithdark.com';
 
 @Injectable({ providedIn: 'root' })
