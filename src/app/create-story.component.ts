@@ -8,7 +8,7 @@ import { StoryService } from './story.service';
   template: `
     <section class="create-story">
       <input [(ngModel)]="draft.title" placeholder="Today's Story" />
-      <textarea rows="4" [(ngModel)]="draft.contents" placeholder="What set today apart from the rest? How did it change you? Take a moment to reflect and write a few short sentences about what made your day interesting."></textarea>
+      <textarea rows="6" [(ngModel)]="draft.contents" placeholder="What set today apart from the rest? How did it change you? Take a moment to reflect and write a few short sentences about what made your day interesting."></textarea>
 
       <div class="create-story-actions">
         <button class="discard-draft-button" (click)="discardDraft()" *ngIf="draft.title || draft.contents">
@@ -61,6 +61,7 @@ import { StoryService } from './story.service';
     .create-story-actions {
       display: flex;
       justify-content: flex-end;
+      margin-bottom: 8px;
     }
 
     .create-story-button {

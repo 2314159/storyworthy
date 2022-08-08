@@ -49,13 +49,17 @@ import { StoryService } from './story.service';
       border-bottom: 1px solid hsl(270deg, 30%, 25%);
       position: fixed;
       width: 100%;
-      background: hsl(270deg, 77%, 9%);
+      background: hsl(270deg, 40%, 8%);
     }
 
     .logo {
       display: flex;
       align-items: center;
       margin: 0 0 0 16px;
+    }
+
+    .logo img {
+      border-radius: 3px;
     }
 
     .logo h3 {
