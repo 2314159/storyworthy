@@ -75,11 +75,6 @@ import { StoryService } from './story.service';
       margin: 0 16px 0 0;
     }
 
-    nav a:link, nav a:visited {
-      text-decoration: none;
-      color: hsl(270deg, 30%, 70%);
-    }
-
     section {
       width: 100%;
       max-width: 750px;

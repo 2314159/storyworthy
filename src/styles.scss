@@ -30,3 +30,8 @@ button ion-icon {
   margin-right: 4px;
   font-size: 1rem;
 }
+
+a:link, a:visited {
+  text-decoration: none;
+  color: hsl(270deg, 30%, 70%);
+}
