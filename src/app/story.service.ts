@@ -43,10 +43,15 @@ export class StoryService {
   }
 
   async createStory(story: Story) {
-    if (story.title && story.contents) {
+    if (story.contents) {
       try {
+        const storyToCreate = {
+          title: story.title || '',
+          contents: story.contents
+        };
+        
         const userId = await this.getUserId();
-        const res = await lastValueFrom(this.http.post<Story>(`${API_ROOT}/${userId}/story`, story, await this.getHeaders()));
+        const res = await lastValueFrom(this.http.post<Story>(`${API_ROOT}/${userId}/story`, storyToCreate, await this.getHeaders()));
         const stories = await lastValueFrom(this.stories$.pipe(take(1)));
         this.stories$.next([res, ...stories]);
         return res;

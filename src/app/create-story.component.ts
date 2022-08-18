@@ -7,14 +7,21 @@ import { StoryService } from './story.service';
   selector: 'app-create-story',
   template: `
     <section class="create-story">
-      <input [(ngModel)]="draft.title" placeholder="Today's Story" />
+      <input [(ngModel)]="draft.title" placeholder="Enter a Title" />
       <textarea rows="6" [(ngModel)]="draft.contents" placeholder="What set today apart from the rest? How did it change you? Take a moment to reflect and write a few short sentences about what made your day interesting."></textarea>
 
       <div class="create-story-actions">
-        <button class="discard-draft-button" (click)="discardDraft()" *ngIf="draft.title || draft.contents">
-          <ion-icon name="trash-outline"></ion-icon> <span>Discard Draft</span>
-        </button>
-        <button class="create-story-button" (click)="createStory(draft)">Create Story</button>
+        <div class="draft-info">
+          <span *ngIf="lastSaved && (draft.title || draft.contents) && !confirmDiscard">
+            Draft last saved at {{ lastSaved | date:'h:mm a' }} &mdash; <a href="#" (click)="confirmDiscard = true">Discard</a>
+          </span>
+
+          <span *ngIf="lastSaved && (draft.title || draft.contents) && confirmDiscard">
+            Are you sure? &nbsp;&nbsp; <a href="#" (click)="discardDraft()">Yes</a> &nbsp;&nbsp; <a href="#" class="indecisive" (click)="confirmDiscard = false">No</a>
+          </span>
+        </div>
+
+        <button class="create-story-button" [ngClass]="{'create-story-button--disabled': !draft.contents}" [disabled]="!draft.contents" (click)="createStory(draft)">Create Story</button>
       </div>
     </section>
   `,
@@ -60,7 +67,8 @@ import { StoryService } from './story.service';
 
     .create-story-actions {
       display: flex;
-      justify-content: flex-end;
+      align-items: baseline;
+      justify-content: space-between;
       margin-bottom: 8px;
     }
 
@@ -76,10 +84,33 @@ import { StoryService } from './story.service';
       color: hsl(230deg, 2%, 100%);
     }
 
+    .create-story-button--disabled {
+      cursor: initial;
+      background: hsl(270deg, 20%, 40%);
+    }
+
+    .create-story-button--disabled:hover {
+      cursor: initial;
+      background: hsl(270deg, 20%, 40%);
+    }
+
+    .draft-info {
+      font-size: 0.875rem;
+      color: hsl(270deg, 30%, 70%);
+    }
+
+    .draft-info a:link:not(.indecisive), .draft-info a:visited:not(.indecisive) {
+      color: hsl(0deg, 60%, 50%) !important;
+    }
+
+    .draft-info a:hover:not(.indecisive) {
+      color: hsl(0deg, 70%, 55%) !important;
+    }
+
     .discard-draft-button {
       margin: 8px 0 0 8px;
       max-width: 200px;
-      background: hsl(0deg, 77%, 40%);
+      background: hsl(0deg, 65%, 40%);
       color: hsl(230deg, 2%, 100%);
     }
 
@@ -89,6 +120,9 @@ import { StoryService } from './story.service';
   `]
 })
 export class CreateStoryComponent implements OnInit, OnDestroy {
+  lastSaved?: Date;
+  confirmDiscard = false;
+
   draft: Story = {
     title: '',
     contents: ''
@@ -104,6 +138,7 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
     this.updateDraftInterval = setInterval(() => {
       if (this.draft.contents || this.draft.title) {
         this.storyService.updateDraft(this.draft);
+        this.lastSaved = new Date();
       }
     }, 5000);
   }
@@ -130,6 +165,7 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
       title: '',
       contents: ''
     };
+    this.confirmDiscard = false;
 
     await this.storyService.deleteDraft();
   }

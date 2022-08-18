@@ -26,6 +26,7 @@ import { StoryService } from './story.service';
     <section class="story">
       <app-create-story></app-create-story>
     </section>
+
     <section class="story" *ngFor="let story of stories$ | async">
       <h1>{{story.title}}</h1>
       <span>{{story.date | date:'mediumDate'}} at {{story.date | date:'shortTime'}}</span>
