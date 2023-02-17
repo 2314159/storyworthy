@@ -6,8 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: hsl(270deg, 25%, 7%);
-  color: hsl(270deg, 77%, 98%);
+  background: hsl(270deg, 0%, 6%);
+  color: hsl(270deg, 0%, 98%);
 }
 
 * {
@@ -33,5 +33,5 @@ button ion-icon {
 
 a:link, a:visited {
   text-decoration: none;
-  color: hsl(270deg, 30%, 70%);
+  color: hsl(270deg, 0%, 70%);
 }

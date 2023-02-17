@@ -11,7 +11,6 @@ import { StoryService } from './story.service';
     <nav>
       <section>
         <div class="logo">
-          <img src="/assets/icons/icon-72x72.png" width="32" /> 
           <h3>Storyworthy</h3>
         </div>
         <div class="account-actions">
@@ -28,7 +27,6 @@ import { StoryService } from './story.service';
     </section>
 
     <section class="story" *ngFor="let story of stories$ | async">
-      <h1>{{story.title}}</h1>
       <span>{{story.date | date:'mediumDate'}} at {{story.date | date:'shortTime'}}</span>
       <div class="contents"><markdown [data]="story.contents"></markdown></div>
     </section>
@@ -47,10 +45,10 @@ import { StoryService } from './story.service';
 
     nav {
       padding: 16px 0;
-      border-bottom: 1px solid hsl(270deg, 30%, 25%);
+      border-bottom: 1px solid hsl(270deg, 0%, 25%);
       position: fixed;
       width: 100%;
-      background: hsl(270deg, 40%, 8%);
+      background: hsl(270deg, 0%, 7%);
     }
 
     .logo {
@@ -64,7 +62,7 @@ import { StoryService } from './story.service';
     }
 
     .logo h3 {
-      margin: 0 0 0 8px;
+      margin: 0;
     }
 
     nav section {
@@ -85,7 +83,7 @@ import { StoryService } from './story.service';
 
     .story {
       flex-direction: column;
-      padding: 0 16px;
+      padding: 1rem 16px;
     }
 
     .story h1 {
@@ -94,7 +92,7 @@ import { StoryService } from './story.service';
 
     .story span {
       font-size: 0.875rem;
-      color: hsl(270deg, 30%, 70%);
+      color: hsl(270deg, 0%, 70%);
 
       /* color: hsl(0deg, 0%, 40%); */
     }

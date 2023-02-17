@@ -7,16 +7,15 @@ import { StoryService } from './story.service';
   selector: 'app-create-story',
   template: `
     <section class="create-story">
-      <input [(ngModel)]="draft.title" placeholder="Enter a Title" />
-      <textarea rows="6" [(ngModel)]="draft.contents" placeholder="What set today apart from the rest? How did it change you? Take a moment to reflect and write a few short sentences about what made your day interesting."></textarea>
+      <textarea rows="6" [(ngModel)]="draft.contents" placeholder="What's on your mind?"></textarea>
 
       <div class="create-story-actions">
         <div class="draft-info">
-          <span *ngIf="lastSaved && (draft.title || draft.contents) && !confirmDiscard">
+          <span *ngIf="lastSaved && draft.contents && !confirmDiscard">
             Draft last saved at {{ lastSaved | date:'h:mm a' }} &mdash; <a href="#" (click)="confirmDiscard = true">Discard</a>
           </span>
 
-          <span *ngIf="lastSaved && (draft.title || draft.contents) && confirmDiscard">
+          <span *ngIf="lastSaved && draft.contents && confirmDiscard">
             Are you sure? &nbsp;&nbsp; <a href="#" (click)="discardDraft()">Yes</a> &nbsp;&nbsp; <a href="#" class="indecisive" (click)="confirmDiscard = false">No</a>
           </span>
         </div>
@@ -31,14 +30,14 @@ import { StoryService } from './story.service';
       flex-direction: column;
       margin: 16px auto;
       padding: 8px 16px;
-      border: 1px solid hsl(270deg, 30%, 25%);
+      border: 1px solid hsl(270deg, 0%, 25%);
       border-radius: 8px;
     }
 
     .create-story textarea, .create-story input {
       padding: 8px;
       background: transparent;
-      color: hsl(270deg, 77%, 98%);
+      color: hsl(270deg, 0%, 98%);
       border: 1px solid transparent;
       font-size: 1rem;
       line-height: 1.4;
@@ -46,18 +45,18 @@ import { StoryService } from './story.service';
     }
 
     .create-story textarea::placeholder, .create-story input::placeholder {
-      color: hsl(270deg, 30%, 70%);
+      color: hsl(270deg, 0%, 70%);
     }
 
     .create-story input {
-      border-bottom: 1px solid hsl(270deg, 30%, 25%);
+      border-bottom: 1px solid hsl(270deg, 0%, 25%);
       margin-bottom: 8px;
       font-size: 1.25rem;
       font-weight: bold;
     }
 
     .create-story input:focus {
-      border-bottom: 1px solid hsl(270deg, 70%, 52%);
+      border-bottom: 1px solid hsl(270deg, 0%, 52%);
     }
     
     .create-story textarea, .create-story input {
@@ -75,47 +74,47 @@ import { StoryService } from './story.service';
     .create-story-button {
       margin: 8px 0 0 8px;
       max-width: 200px;
-      background: hsl(270deg, 77%, 40%);
+      background: hsl(270deg, 0%, 40%);
       color: #fff;
     }
     
     .create-story-button:hover {
-      background: hsl(270deg, 77%, 45%);
-      color: hsl(230deg, 2%, 100%);
+      background: hsl(270deg, 0%, 45%);
+      color: hsl(230deg, 0%, 100%);
     }
 
     .create-story-button--disabled {
       cursor: initial;
-      background: hsl(270deg, 20%, 40%);
+      background: hsl(270deg, 0%, 40%);
     }
 
     .create-story-button--disabled:hover {
       cursor: initial;
-      background: hsl(270deg, 20%, 40%);
+      background: hsl(270deg, 0%, 40%);
     }
 
     .draft-info {
       font-size: 0.875rem;
-      color: hsl(270deg, 30%, 70%);
+      color: hsl(270deg, 0%, 70%);
     }
 
     .draft-info a:link:not(.indecisive), .draft-info a:visited:not(.indecisive) {
-      color: hsl(0deg, 60%, 50%) !important;
+      color: hsl(0deg, 0%, 50%) !important;
     }
 
     .draft-info a:hover:not(.indecisive) {
-      color: hsl(0deg, 70%, 55%) !important;
+      color: hsl(0deg, 0%, 55%) !important;
     }
 
     .discard-draft-button {
       margin: 8px 0 0 8px;
       max-width: 200px;
-      background: hsl(0deg, 65%, 40%);
-      color: hsl(230deg, 2%, 100%);
+      background: hsl(0deg, 0%, 40%);
+      color: hsl(230deg, 0%, 100%);
     }
 
     .discard-draft-button:hover {
-      background: hsl(0deg, 77%, 45%);
+      background: hsl(0deg, 0%, 45%);
     }
   `]
 })
